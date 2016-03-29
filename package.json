@@ -1,0 +1,26 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "main": "views/index.html",
+  "dependencies": {
+    "async": "^2.0.0-rc.2",
+    "connect-flash": "*",
+    "ejs": "~0.7.1",
+    "express": "~3.2.6",
+    "grunt": "*",
+    "grunt-bower-installer": "*",
+    "grunt-contrib-requirejs": "*",
+    "grunt-nodemon": "^0.4.1",
+    "grunt-npm-install": "*",
+    "moment": "*",
+    "mongoose": "*",
+    "mongoose-q": "*",
+    "node-uuid": "*",
+    "passport": "*",
+    "passport-http-bearer": "*",
+    "passport-local": "*",
+    "q": "^1.4.1",
+    "requirejs": "*"
+  }
+}

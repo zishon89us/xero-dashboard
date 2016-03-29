@@ -1,0 +1,153 @@
+<div ng-include src="'partials/nav.html'"></div>
+<!--<div ng-include src="'partials/header.html'"></div>-->
+
+<div class="container-fluid">
+
+
+
+    <br/>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="panel panel-info">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Xero Payruns</div>
+
+                                <table class="table table-condensed table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" width="30%">Name</th>
+                                        <th class="text-center" width="30%">Email</th>
+                                        <th class="text-center" width="20%">Net Pay</th>
+                                        <th class="text-center" width="20%">Net Pay of previous month</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="person in vm.data[0].Paystubs" ng-click="vm.showinfo(person)">
+                                        <td class="text-center">{{person.FirstName}} {{person.LastName}}</td>
+                                        <td class="text-center">{{person.Employee.Email}}</td>
+                                        <td class="text-center">{{vm.data[0].NetPay}}</td>
+                                        <td class="text-center">---</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                     </br>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Title 1</h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    Here you can add Person!
+                                    </br></br>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            5,0000
+                                            <!--<a href="/#person" class="btn btn-default btn-lg">
+                                                <span class="glyphicon glyphicon-book"></span>  Add!
+                                            </a>-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Heading 2</h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    Here you can create thing!
+                                    </br></br>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <!--<a href="/#thing" class="btn btn-default btn-lg">
+                                                <span class="glyphicon glyphicon-bookmark"></span> Create!
+                                            </a>-->
+                                            5,0000
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Heading 3</h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    Here you can join existing set!
+                                    </br></br>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                           5,0000
+                                            <!-- <a href="" type="button" class="btn btn-default btn-lg">
+                                                <span class="glyphicon glyphicon-arrow-right"></span> Join!
+                                            </a>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <canvas id="pie" class="chart chart-pie"
+                            chart-data="vm.chartData" chart-labels="vm.labels">
+                    </canvas>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <hr/>
+
+    <!--hide footer on mobile screen-->
+    <div class="footer navbar-fixed-bottom visible-md visible-lg">
+        <div class="container">
+            <p class="text-muted credit">Xero Payroll Dashboard.<span app-version="app-version"></span></p>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
