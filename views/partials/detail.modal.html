@@ -1,25 +1,29 @@
 <div class="modal-header">
-    <h3 class="modal-title">I'm a modal!</h3>
+    <h3 class="modal-title">{{vm.employee.FirstName}} {{vm.employee.LastName}} <span class="heading-sub"> {{vm.employee.JobTitle}}</span></h3>
 </div>
 <div class="modal-body">
     <table class="table table-bordered">
         <tr>
             <td>Name</td>
-            <td>{{vm.person.FirstName}} {{vm.person.LastName}}</td>
+            <td>{{vm.employee.FirstName}} {{vm.employee.LastName}}</td>
         </tr>
         <tr>
             <td>Email</td>
-            <td>{{vm.person.Employee.Email}}</td>
+            <td>{{vm.employee.Email}}</td>
         </tr>
         <tr>
             <td>Phone</td>
-            <td>{{vm.person.Employee.Phone}}</td>
+            <td>{{vm.employee.Phone}}</td>
+        </tr>
+        <tr>
+            <td>Employment</td>
+            <td>{{vm.employee.EmploymentBasis}} on {{vm.employee.SalaryAndWages.SalaryAndWage.SalaryWagesType}} ({{vm.employee.SalaryAndWages.SalaryAndWage.StandardHoursPerWeek | number}} hrs/wk) </td>
         </tr>
         <tr>
             <td>Address</td>
             <td>
-                <div ng-repeat="(key, value) in vm.person.Employee.HomeAddress">
-                    <span>{{key}}</span> <b>:</b> <span>{{value}}</span>
+                <div ng-repeat="(key, value) in vm.employee.HomeAddress"  ng-if="key!=='Latitude'&&key!=='Longitude'">
+                        <span>{{key}}</span> <b>:</b> <span>{{value}}</span>
                 </div>
             </td>
         </tr>

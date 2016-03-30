@@ -13,7 +13,9 @@
     "cryptojslib": "*",
     "requirejs": "*",
     "angular-bootstrap": "^1.2.5",
-    "angular-chart.js": "^0.9.0"
+    "angular-chart.js": "^0.9.0",
+    "angular-daterangepicker": "^0.2.2",
+    "bootstrap-daterangepicker": "^2.1.19"
   },
   "private": true,
   "ignore": [

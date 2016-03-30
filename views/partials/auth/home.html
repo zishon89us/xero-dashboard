@@ -3,41 +3,75 @@
 
 <div class="container-fluid">
 
-
-
     <br/>
+
 
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
             <div class="row">
+                <div class="col-md-6"> </div>
+                <div class="col-md-4 pull-right">
+                    <div class="form-group">
+                        <div class="input-group" id="payrunrange">
+                            <input date-range-picker
+                                   name="payrunrange"
+                                   class="form-control
+                   date-picker" type="text"
+                                   ng-model="vm.date"
+                                   required/>
+                            <span class="input-group-addon" onclick="this.previousElementSibling.click()"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-2"> </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
+
+
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <i class="fa fa-info-circle"></i>  <strong>Hint:</strong> You can choose date range for desired data.
+                    </div>
 
                     <div class="row">
                         <div class="col-md-12">
 
                             <div class="panel panel-info">
                                 <!-- Default panel contents -->
-                                <div class="panel-heading">Xero Payruns</div>
+                                <div class="panel-heading"><h4>Payrun <span class="heading-sub">({{vm.payrun.PayRunPeriodStartDate | date:"yyyy MMMM"}})</span></h4></div>
 
                                 <table class="table table-condensed table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="text-center" width="30%">Name</th>
-                                        <th class="text-center" width="30%">Email</th>
+                                        <th class="text-center" width="20%">Name</th>
+                                        <th class="text-center" width="20%">Email</th>
+                                        <th class="text-center" width="15%">Start Date</th>
                                         <th class="text-center" width="20%">Net Pay</th>
                                         <th class="text-center" width="20%">Net Pay of previous month</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="person in vm.data[0].Paystubs" ng-click="vm.showinfo(person)">
-                                        <td class="text-center">{{person.FirstName}} {{person.LastName}}</td>
-                                        <td class="text-center">{{person.Employee.Email}}</td>
-                                        <td class="text-center">{{vm.data[0].NetPay}}</td>
-                                        <td class="text-center">---</td>
+                                    <tr ng-repeat="paystub in vm.payrun.Paystubs.Paystub" ng-click="vm.showEmployeeDetail(paystub.EmployeeID)">
+                                        <td class="text-center">{{paystub.FirstName}} {{paystub.LastName}}</td>
+                                        <td class="text-center">{{vm.employees[paystub.EmployeeID].Email}}</td>
+                                        <td class="text-center">{{vm.employees[paystub.EmployeeID].StartDate | date:"yyyy-MMM-dd"}}</td>
+                                        <td class="text-center">{{paystub.NetPay}}</td>
+                                        <td class="text-center">{{vm.employees[paystub.EmployeeID].PreviousNetPay}}</td>
                                     </tr>
 
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th class="text-center" width="20%"> </th>
+                                        <th class="text-center" width="20%"> </th>
+                                        <th class="text-center" width="10%">Total -</th>
+                                        <th class="text-center" width="10%"><span ng-if="vm.payrun.NetPay">{{vm.payrun.NetPay}} </span></th>
+                                        <th class="text-center" width="10%"><span ng-if="vm.previousPayrun.NetPay"> {{vm.previousPayrun.NetPay}} </span></th>
+                                    </tr>
+                                    </tfoot>
                                 </table>
 
                             </div>
@@ -53,20 +87,18 @@
 
                         <div class="col-md-4">
 
-                            <div class="panel panel-primary">
+                            <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Title 1</h3>
+                                    <h3 class="panel-title"><i class="fa fa-money fa-lg"></i>  </h3>
                                 </div>
                                 <div class="panel-body text-center">
-                                    Here you can add Person!
+                                    Total Earning
                                     </br></br>
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            5,0000
-                                            <!--<a href="/#person" class="btn btn-default btn-lg">
-                                                <span class="glyphicon glyphicon-book"></span>  Add!
-                                            </a>-->
+                                            {{vm.payrun.Earnings | currency}}
+
                                         </div>
                                     </div>
 
@@ -79,10 +111,10 @@
 
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Heading 2</h3>
+                                    <h3 class="panel-title"><i class="fa fa-bar-chart fa-lg"></i>  </h3>
                                 </div>
                                 <div class="panel-body text-center">
-                                    Here you can create thing!
+                                    Average Earning
                                     </br></br>
 
                                     <div class="row">
@@ -90,7 +122,7 @@
                                             <!--<a href="/#thing" class="btn btn-default btn-lg">
                                                 <span class="glyphicon glyphicon-bookmark"></span> Create!
                                             </a>-->
-                                            5,0000
+                                            {{vm.payrun.Earnings/vm.payrun.Paystubs.Paystub.length | currency}}
                                         </div>
                                     </div>
                                 </div>
@@ -99,20 +131,17 @@
 
                         <div class="col-md-4">
 
-                            <div class="panel panel-success">
+                            <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Heading 3</h3>
+                                    <h3 class="panel-title"><i class="fa fa-users fa-lg"></i>  </h3>
                                 </div>
                                 <div class="panel-body text-center">
-                                    Here you can join existing set!
+                                    Total Employees
                                     </br></br>
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                           5,0000
-                                            <!-- <a href="" type="button" class="btn btn-default btn-lg">
-                                                <span class="glyphicon glyphicon-arrow-right"></span> Join!
-                                            </a>-->
+                                            {{vm.employees | keylength}}
                                         </div>
                                     </div>
                                 </div>

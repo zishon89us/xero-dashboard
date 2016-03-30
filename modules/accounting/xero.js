@@ -53,7 +53,7 @@ XeroLayer.prototype.payrunsByDateRange = function (start_date, end_date) {
     var deferred = q.defer();
 
     if(!start_date && !end_date)
-        start_date = moment((new Date()).toUTCString()).subtract(1, 'months').startOf('month').format(filterFormat);
+        start_date = moment(moment().toISOString()).subtract(1, 'months').startOf('month').format(filterFormat);
 
     var filter = '';
 

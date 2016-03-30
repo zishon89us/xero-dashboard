@@ -35,24 +35,37 @@ define(['angular'], function (angular) {
 
         var _ajaxRequest = function(method, URL, data, key){
             var deferred = $q.defer();
-            $http({method: method, url: URL, data:data}).
-                success(function(data) {
-                    deferred.resolve(data);
-                    if(URL==="GET") _genericCallback(key,data);
-                }).
-                error(function(data) {
-                    deferred.reject(data);
-                }
-            );
+            if(method === "GET"){
+                $http({method: method, url: URL, params:data}).
+                    success(function(data) {
+                        deferred.resolve(data);
+                        if(URL==="GET") _genericCallback(key,data);
+                    }).
+                    error(function(data) {
+                        deferred.reject(data);
+                    }
+                );
+            }
+            else{
+                $http({method: method, url: URL, data:data}).
+                    success(function(data) {
+                        deferred.resolve(data);
+                        if(URL==="GET") _genericCallback(key,data);
+                    }).
+                    error(function(data) {
+                        deferred.reject(data);
+                    }
+                );
+            }
             return deferred.promise;
         };
 
         return {
-            getPayrun : function(refresh){
-                return _promisesGetter('GET','/api/payruns', null, "people", refresh);
-            },
             getPayruns : function(refresh){
-                return _promisesGetter('GET','/api/payruns/range', null, "things", refresh);
+                return _promisesGetter('GET','/api/payruns/employees/range', null, "payruns", refresh);
+            },
+            getPayrunsWithDate : function(data, refresh){
+                return _promisesGetter('GET','/api/payruns/employees/range', data, "payruns", refresh);
             },
             signup : function(user){
                 return _ajaxRequest('POST', '/api/signup', user, null);

@@ -1,7 +1,8 @@
 module.exports = function(){
 
     var async = require('async');
-    var xero = require('../../modules/accounting/xero');
+    var xero = require('../../modules/accounting/xero'),
+        util = require('../util/util');
 
     return {
 
@@ -60,12 +61,15 @@ module.exports = function(){
                 },
                 function (results, cb_) {
 
-                    var payrunIds = results.payruns.Response.PayRuns.PayRun.map(function(obj){
+                    /*var payrunIds = results.payruns.Response.PayRuns.PayRun.map(function(obj){
                        return obj.PayRunID;
                     });
                     var employeeIds = results.employees.Response.Employees.Employee.map(function(obj){
                         return obj.EmployeeID;
-                    });
+                    });*/
+                    var payrunIds = util.getPayrunIds(results.payruns.Response);
+                    var employeeIds = util.getEmployeeIds(results.employees.Response);
+
                     async.parallel({
                             payrunsInDetail: function (callback) {
                                 async.map(payrunIds, function(payrunId, cb){
@@ -92,15 +96,13 @@ module.exports = function(){
 
                 },
                 function (results, callback) {
-                    //crunch latest data
-                    var response = {payrun:null,employees:[]};
-                    /*if(results.employeesInDetail.length){
-
-                    }*/
-                    if(results.payrunsInDetail.length){
-                        response.payrun = results.payrunsInDetail[0].Response.PayRuns.PayRun
-                    }
-                    res.send(response)
+                    //format data
+                    var response = {
+                        payrun:util.getLatestPayrunOutOfRange(results.payrunsInDetail),
+                        previousPayrun:util.getPreviousPayrunOutOfRange(results.payrunsInDetail),
+                        employees:util.getEmployeesKeyVal(results.employeesInDetail, results.payrunsInDetail)
+                    };
+                     res.send(response)
 
                     //callback(null, finalResult);
                 }

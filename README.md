@@ -1,4 +1,4 @@
-#Xero Dashboard
+#Bootstrap Dashboard
 
 How to run app:
 

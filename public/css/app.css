@@ -51,7 +51,7 @@ body {
     font-weight: normal;
     margin-left: 8%;
 }
-.form-signin-heading-sub{
+.form-signin-heading-sub,.heading-sub{
     font-size: 14px;
 }
 .form-signin .form-control {

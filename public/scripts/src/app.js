@@ -8,8 +8,12 @@ define([
     'cryptojslib',
     'controllers',
     'services',
+    'filters',
     'angularBootstrap',
-    'angularChart'
+    'angularChart',
+    'daterangepicker',
+    'moment',
+    'angulardaterangepicker'
 
 ], function (angular) {
     'use strict';
@@ -20,9 +24,11 @@ define([
         'LocalStorageModule',
         'toastr',
         'myAppServices',
+        'myApp.filters',
         'mainAppControllers',
         'ui.bootstrap',
-        'chart.js'
+        'chart.js',
+        'daterangepicker'
     ]);
 
 
@@ -86,7 +92,7 @@ define([
                     controllerAs: 'vm',
                     resolve: {
                         data : function(Resolver,ResourceService){
-                            return Resolver([ResourceService.getPayrun(true),ResourceService.getPayruns(true)])
+                            return Resolver([ResourceService.getPayruns(true)])
                         }
                     },
                     access: { requiredLogin: true }
