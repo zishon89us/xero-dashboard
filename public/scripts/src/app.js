@@ -91,7 +91,10 @@ define([
                     controller: 'HomeCtrl',
                     controllerAs: 'vm',
                     resolve: {
-                        data : function(Resolver,ResourceService){
+                        data : function(Resolver,ResourceService, toastr, $timeout){
+                            $timeout(function(){
+                                toastr.info('Just moments away!');
+                            },1000);
                             return Resolver([ResourceService.getPayruns(true), ResourceService.getPayrunsMeta(true)])
                         }
                     },

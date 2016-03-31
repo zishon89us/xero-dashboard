@@ -3,7 +3,7 @@ define(['angular'], function (angular) {
 
     var mainAppControllers = angular.module('mainAppControllers', []);
     mainAppControllers.controller('NavCtrl', ['$location', 'localStorageService', 'AuthenticationService', NavCtrl]);
-    mainAppControllers.controller('LoginCtrl', ['$location', 'ResourceService', 'CryptoJSService', 'localStorageService', 'toastr', LoginCtrl]);
+    mainAppControllers.controller('LoginCtrl', ['$location', '$timeout', 'ResourceService', 'CryptoJSService', 'localStorageService', 'toastr', LoginCtrl]);
     mainAppControllers.controller('RegistrationCtrl', ['$location', 'ResourceService', 'CryptoJSService', 'toastr', RegistrationCtrl]);
     mainAppControllers.controller('HomeCtrl', ['$scope', '$timeout', 'ResourceService', 'data', 'toastr', '$uibModal', HomeCtrl]);
     mainAppControllers.controller('ProvaCtrl', [ProvaCtrl]);
@@ -33,9 +33,10 @@ define(['angular'], function (angular) {
     };
 
 
-    function LoginCtrl($location, ResourceService, CryptoJS, localStorageService, toastr, datepicker) {
+    function LoginCtrl($location, $timeout, ResourceService, CryptoJS, localStorageService, toastr, datepicker) {
         var vm = this;
         vm.$location = $location;
+        vm.$timeout = $timeout;
         vm.ResourceService = ResourceService;
         vm.CryptoJS = CryptoJS;
         vm.localStorageService = localStorageService;
@@ -59,6 +60,10 @@ define(['angular'], function (angular) {
 
             vm.ResourceService.login(user).then(function (data) {
                 vm.localStorageService.set("auth_token", data.auth_token);
+                vm.toastr.success('Crunching Data... Hang tight!');
+                /*vm.$timeout(function(){
+                    vm.toastr.info('Just moments away!');
+                },2010);*/
                 vm.$location.path("/home");
             }, function (data, status) {
                 if (status === 401) {
@@ -119,6 +124,9 @@ define(['angular'], function (angular) {
 
     function HomeCtrl($scope, $timeout, ResourceService, data, toastr, $uibModal) {
         var vm = this;
+
+        vm.toastr = toastr;
+
         vm.ResourceService = ResourceService;
         if (typeof data[0].payrun == "string")
             vm.toastr.info("No Payrun Found :| Try Refreshing.");
@@ -164,8 +172,6 @@ define(['angular'], function (angular) {
             }
 
         }
-
-        vm.toastr = toastr;
 
         vm.date = {
             startDate: moment().subtract(1, 'months').startOf('month'),
