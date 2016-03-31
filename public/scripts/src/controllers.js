@@ -127,9 +127,44 @@ define(['angular'], function (angular) {
         if (typeof data[0].previousPayrun == "string")
             vm.toastr.info("No Employees Found :| Try Refreshing.");
 
+        vm.PKRExhangeRate = 1;
+        vm.ResourceService.getPKRExchangeRate(true).then(function (data) {
+            vm.PKRExhangeRate = data.PKR;
+        }, function (data, status) {
+            vm.toastr.error("Exchange Rate for PKR Failed.");
+        });
+
         vm.payrun = data[0].payrun;
         vm.previousPayrun = data[0].previousPayrun;
         vm.employees = data[0].employees;
+
+        vm.netPayArr = [];
+        vm.deductionsArr = [];
+        vm.earningsArr = [];
+        vm.monthsArr = [];
+
+        //check if array is returned
+        if (data[1].Response.PayRuns && data[1].Response.PayRuns.PayRun) {
+            if (typeof data[1].Response.PayRuns.PayRun.map == "function") {
+                var tempPayRuns = data[1].Response.PayRuns.PayRun;
+                for (var i in tempPayRuns) {
+                    vm.netPayArr.push(tempPayRuns[i].NetPay);
+                    vm.deductionsArr.push(tempPayRuns[i].Deductions);
+                    vm.earningsArr.push(tempPayRuns[i].Earnings);
+                    vm.monthsArr.push(moment(tempPayRuns[i].PayRunPeriodEndDate).format("MMM"));
+                }
+            }
+            //check if object is returned
+            if (typeof data[1].Response.PayRuns.PayRun == "object" && typeof data[1].Response.PayRuns.PayRun.map == "undefined") {
+                tempPayRuns = data[1].Response.PayRuns.PayRun;
+                vm.netPayArr.push(tempPayRuns.NetPay);
+                vm.deductionsArr.push(tempPayRuns.Deductions);
+                vm.earningsArr.push(tempPayRuns.Earnings);
+                vm.monthsArr.push(moment(tempPayRuns.PayRunPeriodEndDate).format("MMM"));
+            }
+
+        }
+
         vm.toastr = toastr;
 
         vm.date = {
@@ -141,7 +176,7 @@ define(['angular'], function (angular) {
         vm.init = true;
         $scope.$watch('vm.date', function (newDate) {
 
-            if (!vm.init){
+            if (!vm.init) {
                 vm.toastr.info("On the way! Fetching data...");
                 vm.ResourceService.getPayrunsWithDate({
                     startDate: newDate.startDate.format('YYYY-MM-DD'),
@@ -165,15 +200,47 @@ define(['angular'], function (angular) {
 
         }, false);
 
-        vm.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-        vm.chartData = [300, 500, 100];
+        //pie chart
+        vm.labels = ["FULLTIME", "PARTTIME", "WAGES"];
+        vm.chartData = [0, 0, 0];
+        var pieObj = {
+            "FULLTIME": 0, "PARTTIME": 0, "WAGES": 0
+        };
+        for (var i in vm.employees) {
+            pieObj[vm.employees[i].EmploymentBasis] += Number(1);
+        }
+        if (Object.keys(pieObj).length) {
+            vm.labels = [];
+            vm.chartData = [];
+            for (var key in pieObj) {
+                vm.labels.push(key);
+                vm.chartData.push(pieObj[key]);
+            }
+        }
+        vm.series = [
+            "Full Time",
+            "Part Time",
+            "Visiting"
+        ];
 
-        vm.showEmployeeDetail = function (employeeId) {
+        vm.config = {legend: {display: true, position: 'right'}};
+
+        //line chart
+        vm.NetPayOverTimeLabels = vm.monthsArr || ["Jan", "Feb", "Mar", "April"];
+        $scope.series = ['Series A', 'Series B'];
+        vm.NetPayOverTimeData = [
+            vm.netPayArr,
+            vm.deductionsArr
+        ];
+
+        vm.showEmployeeDetail = function (employeeId, paystub) {
             $uibModal.open({
                 animation: true,
                 templateUrl: 'partials/detail.modal.html',
                 controller: function () {
-                    this.employee = vm.employees[employeeId]
+                    this.employee = vm.employees[employeeId],
+                    this.paystub = paystub,
+                    this.PKRExhangeRate = vm.PKRExhangeRate
                 },
                 controllerAs: 'vm'
             });

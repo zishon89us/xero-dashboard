@@ -92,7 +92,7 @@ define([
                     controllerAs: 'vm',
                     resolve: {
                         data : function(Resolver,ResourceService){
-                            return Resolver([ResourceService.getPayruns(true)])
+                            return Resolver([ResourceService.getPayruns(true), ResourceService.getPayrunsMeta(true)])
                         }
                     },
                     access: { requiredLogin: true }

@@ -10,7 +10,7 @@
         <div class="col-md-10 col-md-offset-1">
 
             <div class="row">
-                <div class="col-md-6"> </div>
+                <div class="col-md-6"></div>
                 <div class="col-md-4 pull-right">
                     <div class="form-group">
                         <div class="input-group" id="payrunrange">
@@ -20,12 +20,13 @@
                    date-picker" type="text"
                                    ng-model="vm.date"
                                    required/>
-                            <span class="input-group-addon" onclick="this.previousElementSibling.click()"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <span class="input-group-addon" onclick="this.previousElementSibling.click()"><span
+                                    class="glyphicon glyphicon-calendar"></span></span>
                         </div>
                     </div>
 
                 </div>
-                <div class="col-md-2"> </div>
+                <div class="col-md-2"></div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -33,7 +34,8 @@
 
                     <div class="alert alert-info alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <i class="fa fa-info-circle"></i>  <strong>Hint:</strong> You can choose date range for desired data.
+                        <i class="fa fa-info-circle"></i> <strong>Hint:</strong> You can choose date range for desired
+                        data.
                     </div>
 
                     <div class="row">
@@ -41,7 +43,8 @@
 
                             <div class="panel panel-info">
                                 <!-- Default panel contents -->
-                                <div class="panel-heading"><h4>Payrun <span class="heading-sub">({{vm.payrun.PayRunPeriodStartDate | date:"yyyy MMMM"}})</span></h4></div>
+                                <div class="panel-heading"><h4>Payrun <span class="heading-sub">({{vm.payrun.PayRunPeriodStartDate | date:"yyyy MMMM"}})</span>
+                                </h4></div>
 
                                 <table class="table table-condensed table-hover">
                                     <thead>
@@ -54,10 +57,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="paystub in vm.payrun.Paystubs.Paystub" ng-click="vm.showEmployeeDetail(paystub.EmployeeID)">
+                                    <tr ng-repeat="paystub in vm.payrun.Paystubs.Paystub"
+                                        ng-click="vm.showEmployeeDetail(paystub.EmployeeID, paystub)">
                                         <td class="text-center">{{paystub.FirstName}} {{paystub.LastName}}</td>
                                         <td class="text-center">{{vm.employees[paystub.EmployeeID].Email}}</td>
-                                        <td class="text-center">{{vm.employees[paystub.EmployeeID].StartDate | date:"yyyy-MMM-dd"}}</td>
+                                        <td class="text-center">{{vm.employees[paystub.EmployeeID].StartDate |
+                                            date:"yyyy-MMM-dd"}}
+                                        </td>
                                         <td class="text-center">{{paystub.NetPay}}</td>
                                         <td class="text-center">{{vm.employees[paystub.EmployeeID].PreviousNetPay}}</td>
                                     </tr>
@@ -65,11 +71,13 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th class="text-center" width="20%"> </th>
-                                        <th class="text-center" width="20%"> </th>
+                                        <th class="text-center" width="20%"></th>
+                                        <th class="text-center" width="20%"></th>
                                         <th class="text-center" width="10%">Total -</th>
-                                        <th class="text-center" width="10%"><span ng-if="vm.payrun.NetPay">{{vm.payrun.NetPay}} </span></th>
-                                        <th class="text-center" width="10%"><span ng-if="vm.previousPayrun.NetPay"> {{vm.previousPayrun.NetPay}} </span></th>
+                                        <th class="text-center" width="10%"><span ng-if="vm.payrun.NetPay">{{vm.payrun.NetPay}} </span>
+                                        </th>
+                                        <th class="text-center" width="10%"><span ng-if="vm.previousPayrun.NetPay"> {{vm.previousPayrun.NetPay}} </span>
+                                        </th>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -79,7 +87,7 @@
                         </div>
                     </div>
 
-                     </br>
+                    </br>
 
                     <hr>
 
@@ -89,7 +97,7 @@
 
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-money fa-lg"></i>  </h3>
+                                    <h3 class="panel-title"><i class="fa fa-money fa-lg"></i></h3>
                                 </div>
                                 <div class="panel-body text-center">
                                     Total Earning
@@ -111,7 +119,7 @@
 
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-bar-chart fa-lg"></i>  </h3>
+                                    <h3 class="panel-title"><i class="fa fa-bar-chart fa-lg"></i></h3>
                                 </div>
                                 <div class="panel-body text-center">
                                     Average Earning
@@ -133,7 +141,7 @@
 
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-users fa-lg"></i>  </h3>
+                                    <h3 class="panel-title"><i class="fa fa-users fa-lg"></i></h3>
                                 </div>
                                 <div class="panel-body text-center">
                                     Total Employees
@@ -150,11 +158,28 @@
 
                     </div>
 
-
-                    <canvas id="pie" class="chart chart-pie"
-                            chart-data="vm.chartData" chart-labels="vm.labels">
-                    </canvas>
-
+                    <div class="row">
+                        <div class="col-md-6">
+                            NetPay over Time
+                            <br/>
+                            <br/>
+                            <canvas id="bar" class="chart chart-bar"
+                                    chart-data="vm.NetPayOverTimeData" chart-labels="vm.NetPayOverTimeLabels">
+                                chart-series="series"
+                            </canvas>
+                        </div>
+                        <div class="col-md-6">
+                            Employment Basis
+                            <br/>
+                            <br/>
+                            <canvas id="pie"
+                                    class="chart chart-pie"
+                                    chart-data="vm.chartData"
+                                    chart-config="vm.config"
+                                    chart-labels="vm.labels">
+                            </canvas>
+                        </div>
+                    </div>
 
                 </div>
 

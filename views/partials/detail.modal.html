@@ -23,13 +23,29 @@
             <td>Address</td>
             <td>
                 <div ng-repeat="(key, value) in vm.employee.HomeAddress"  ng-if="key!=='Latitude'&&key!=='Longitude'">
-                        <span>{{key}}</span> <b>:</b> <span>{{value}}</span>
+                        <span class="col-md-4">{{key}}</span>  <span class="col-md-8">{{value}}</span>
                 </div>
             </td>
         </tr>
         <tr>
             <td>Account info</td>
-            <td>---</td>
+            <td>
+                <div>
+                    <span class="col-md-4">Earnings</span>  <span class="col-md-6">{{vm.paystub.Earnings*vm.PKRExhangeRate}}</span>  <span class="col-md-2">PKR</span>
+                </div>
+                <div>
+                    <span class="col-md-4">Deductions</span>  <span class="col-md-6">{{vm.paystub.Deductions*vm.PKRExhangeRate}}</span><span class="col-md-2">PKR</span>
+                </div>
+                <div>
+                    <span class="col-md-4">Tax</span>  <span class="col-md-6">{{vm.paystub.Tax*vm.PKRExhangeRate}}</span>  <span class="col-md-2">PKR</span>
+                </div>
+                <div>
+                    <span class="col-md-4">Reimbursements</span>  <span class="col-md-6">{{vm.paystub.Reimbursements*vm.PKRExhangeRate}}</span> <span class="col-md-2">PKR</span>
+                </div>
+                <div>
+                    <span class="col-md-4">NetPay</span>  <span class="col-md-6">{{vm.paystub.NetPay*vm.PKRExhangeRate}}</span> <span class="col-md-2">PKR</span>
+                </div>
+            </td>
         </tr>
     </table>
 </div>

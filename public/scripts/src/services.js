@@ -67,6 +67,15 @@ define(['angular'], function (angular) {
             getPayrunsWithDate : function(data, refresh){
                 return _promisesGetter('GET','/api/payruns/employees/range', data, "payruns", refresh);
             },
+            getPayrunsMeta : function(data, refresh){
+                return _promisesGetter('GET','/api/payruns', null, "payrunsMeta", refresh);
+            },
+            getPayrunsMeta : function(refresh){
+                return _promisesGetter('GET','/api/payruns', null, "payrunsMeta", refresh);
+            },
+            getPKRExchangeRate : function(refresh){
+                return _promisesGetter('GET','/api/exchange/usd/pkr', null, "pkr", refresh);
+            },
             signup : function(user){
                 return _ajaxRequest('POST', '/api/signup', user, null);
             },
