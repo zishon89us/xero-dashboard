@@ -70,9 +70,6 @@ define(['angular'], function (angular) {
             getPayrunsMeta : function(data, refresh){
                 return _promisesGetter('GET','/api/payruns', null, "payrunsMeta", refresh);
             },
-            getPayrunsMeta : function(refresh){
-                return _promisesGetter('GET','/api/payruns', null, "payrunsMeta", refresh);
-            },
             getPKRExchangeRate : function(refresh){
                 return _promisesGetter('GET','/api/exchange/usd/pkr', null, "pkr", refresh);
             },

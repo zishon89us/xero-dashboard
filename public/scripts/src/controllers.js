@@ -189,7 +189,7 @@ define(['angular'], function (angular) {
 
                     vm.payrun = data.payrun;
                     vm.previousPayrun = data.previousPayrun;
-                    //vm.employees = data.employees;
+                    vm.employees = data.employees;
                 }, function (data, status) {
                     vm.toastr.error(data);
                 });

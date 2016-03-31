@@ -5,6 +5,7 @@
   "main": "views/index.html",
   "dependencies": {
     "async": "^2.0.0-rc.2",
+    "bower": "^1.7.7",
     "connect-flash": "*",
     "ejs": "~0.7.1",
     "express": "~3.2.6",

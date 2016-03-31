@@ -62,7 +62,7 @@ XeroLayer.prototype.payrunsByDateRange = function (start_date, end_date) {
     if (start_date && end_date)
         filter += ' && ';
     if (end_date)
-        filter += 'PayRunPeriodEndDate < DateTime(' + moment(end_date).format(filterFormat) + ')';
+        filter += 'PayRunPeriodEndDate <= DateTime(' + moment(end_date).format(filterFormat) + ')';
 
     xero.payroll('GET', '/Payruns?' + queryString.stringify({where: filter}), null, function (err, resp) {
         if (err) {

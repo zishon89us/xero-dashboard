@@ -13,14 +13,14 @@ module.exports = function(app, passport,models) {
     });
 
     app.get('/partials/auth/:name', showClientRequest, passport.authenticate('local-authorization', {
-        session: false
+        session: true
     }),function (req, res) {
         var name = req.params.name;
         res.render('partials/auth/' + name);
     });
 
     app.post('/api/login', showClientRequest, passport.authenticate('local-login', {
-        session: false
+        session: true
     }),api.login);
 
     app.post('/api/signup', showClientRequest, api.signup);

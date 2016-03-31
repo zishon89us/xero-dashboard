@@ -30,7 +30,7 @@ app.configure(function() {
     app.engine('.html', require('ejs').__express);
     app.set('views', __dirname + '/views');
     app.use(express.static(path.join(__dirname, 'public')));
-    //app.use(express.session({ secret: 'keyboard cat' }));// persistent login sessions
+    app.use(express.session({ secret: 'nodecheat' }));// persistent login sessions
     app.use(express.methodOverride());
     app.use(express.json());
     app.use(express.urlencoded());
@@ -38,7 +38,7 @@ app.configure(function() {
 
     //passport configuration
     app.use(passport.initialize());
-    //app.use(passport.session());// persistent login sessions
+    app.use(passport.session());// persistent login sessions
     //provagg
     app.use(app.router); //init routing
 
