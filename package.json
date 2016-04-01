@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "main": "views/index.html",
+  "scripts": {
+    "preinstall": "npm install https://github.com/zishon89us/xero.git",
+    "postinstall": "node node_modules/bower/bin/bower install && node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "bower": "^1.7.7",
@@ -23,6 +28,7 @@
     "passport-http-bearer": "*",
     "passport-local": "*",
     "q": "^1.4.1",
+    "request": "^2.69.0",
     "requirejs": "*"
   }
 }

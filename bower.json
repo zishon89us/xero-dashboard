@@ -17,6 +17,9 @@
     "angular-daterangepicker": "^0.2.2",
     "bootstrap-daterangepicker": "^2.1.19"
   },
+  "resolutions": {
+    "angular": "1.5.3"
+  },
   "private": true,
   "ignore": [
     "**/.*",
