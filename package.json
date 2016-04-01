@@ -9,6 +9,7 @@
     "connect-flash": "*",
     "ejs": "~0.7.1",
     "express": "~3.2.6",
+    "express-validator": "^2.20.3",
     "grunt": "*",
     "grunt-bower-installer": "*",
     "grunt-contrib-requirejs": "*",

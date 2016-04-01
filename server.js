@@ -2,6 +2,7 @@
  * Module dependencies
 */
 var express  = require('express'),
+    expressValidator = require('express-validator'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     flash = require('connect-flash'),
@@ -26,6 +27,7 @@ app.configure(function() {
     app.use(express.logger('dev')); // log every request to the console
     app.use(express.cookieParser()); // read cookies (needed for auth)
     app.use(express.bodyParser()); // get information from html forms
+    app.use(expressValidator()); // this line must be immediately after express.bodyParser()!
     app.set('view engine', 'html'); // set up html for templating
     app.engine('.html', require('ejs').__express);
     app.set('views', __dirname + '/views');

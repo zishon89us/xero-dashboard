@@ -19,11 +19,11 @@ module.exports = function(app, passport,models) {
         res.render('partials/auth/' + name);
     });
 
-    app.post('/api/login', showClientRequest, passport.authenticate('local-login', {
+    app.post('/api/login', showClientRequest, usernameValid, passport.authenticate('local-login', {
         session: true
     }),api.login);
 
-    app.post('/api/signup', showClientRequest, api.signup);
+    app.post('/api/signup', showClientRequest, usernameValid, api.signup);
 
 
     app.get('/api/logout', showClientRequest, passport.authenticate('local-authorization', {
@@ -79,5 +79,18 @@ module.exports = function(app, passport,models) {
         }
         console.log(request)
         return next();
+    }
+
+    /*sample validation, it could be extended but its kept simple for sample*/
+    function usernameValid(req, res, next){
+        req.assert('username', '3 to 20 characters required').len(3, 20);
+
+        var errors = req.validationErrors(); // Or req.asyncValidationErrors();
+        if(errors.length){
+            res.status(422);
+            res.send("username should be at 3-20 character long");
+        }
+        else
+            return next();
     }
 }

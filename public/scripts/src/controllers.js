@@ -113,7 +113,7 @@ define(['angular'], function (angular) {
                     vm.$location.path("/login");
 
                 }, function (data) {
-                    vm.toastr.error(data.message);
+                    vm.toastr.error(data.message || data );
                 });
             }
         } else {
