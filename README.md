@@ -16,3 +16,6 @@ Above command will `preinstall` xero-api module (https://github.com/zishon89us/x
 `postinstall` bower_components and run server at Port 3000.
 
 Note: This app uses mongodb so make sure mongo server is running.
+
+
+![alt tag](https://raw.githubusercontent.com/zishon89us/xero-dashboard/master/screenshots/screen1.png)
