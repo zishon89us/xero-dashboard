@@ -1,10 +1,18 @@
-#Bootstrap Dashboard
+#Xero Payroll Dashboard
 
-How to run app:
+##What is inside
 
-npm install -g grunt grunt-cli //installs grunt
-npm install https://github.com/zishon89us/xero.git //extended xero node.js module
-grunt init // installs node_modules and bower_components
-grunt start //starts app
+Dashboard shows table of Payruns and allows you to see desired months data. It also shows Employess
+details along with Salary Information. It also shows info in PKR.
 
-Note: This app uses mongodb so make sure is running.
+Dashboard shows 2 graphs about NetPay and Employment nature respectively.
+
+
+##How to run app
+
+ `> npm install`
+
+Above command will `preinstall` xero-api module (https://github.com/zishon89us/xero) and
+`postinstall` bower_components and run server at Port 3000.
+
+Note: This app uses mongodb so make sure mongo server is running.
